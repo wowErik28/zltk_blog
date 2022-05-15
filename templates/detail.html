@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}
+    问答详情页面
+{% endblock %}
+{% block body %}
+    <div class="row" style="margin-top: 20px;">
+        <div class="col"></div>
+        <div class="col-8">
+            <h3 class="page-title">{{ question.title }}</h3>
+            <p class="question-info">
+                <span>作者：{{ question.author.username }}</span>
+                <span>时间：{{ question.create_time }}</span>
+            </p>
+            <hr>
+            <p class="question-content">
+                {{ question.content }}
+            </p>
+            <hr>
+            <h4 class="comment-group-title">
+                评论({{ answers_num }})
+            </h4>
+            <form action="{{ url_for('qa.upload_answer', question_id=question.id) }}" method="post">
+                <div class="form-group">
+                            <textarea name="content" cols="30" rows="10" class="form-control"
+                                      placeholder="请输入评论"></textarea>
+                </div>
+                <div class="form-group">
+                    <button class="btn btn-primary" type="submit">发布</button>
+                </div>
+            </form>
+            {% for answer in answers %}
+                <ul class="comment-group">
+                    <li>
+                        <div class="user-info">
+                            <img src="{{ url_for('static', filename='1.jpg') }}"
+                                 width="50px" height="50px">
+                            <span class="username">{{ answer.author.username }}</span>
+                            <span class="create-time">{{ answer.create_time }}</span>
+                        </div>
+                        <p class="comment-content">{{ answer.content }}</p>
+                        <form action="{{ url_for('qa.delete_answer',
+                              question_id = question.id, answer_id = answer.id) }}" method="get">
+                            <div class="form-group">
+                                <button class="btn btn-primary" type="submit">删除</button>
+                            </div>
+                        </form>
+                    </li>
+                </ul>
+            {% endfor %}
+        </div>
+        <div class="col"></div>
+    </div>
+{% endblock %}

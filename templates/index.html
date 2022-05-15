@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+
+{% block title %}
+    知了问答-首页
+{% endblock %}
+
+{% block head %}
+{% endblock %}
+
+{% block body %}
+    <div class="container" align="middle">
+    <iframe src="//player.bilibili.com/player.html?aid=764123508&bvid=BV17r4y1y7jJ&cid=440891352&page=29"
+            scrolling="no" border="0" frameborder="no" framespacing="0" height="480" width="800"
+            allowfullscreen="true"> </iframe>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-8">
+            {% for question in questions %}
+                <ul class="question-ul">
+                    <li>
+                        <div class="side-question">
+                            <img src="{{ url_for('static', filename='1.jpg') }}" alt="照片"
+                                 width="50px" height="50px">
+                        </div>
+                        <div class="question-main">
+                            <p class="question-title">
+                                <a href="{{ url_for('qa.question_detail', question_id=question.id) }}">{{ question.title }}</a>
+                            </p>
+                            <q class="question-content">
+                                {{ question.content }}
+                            </q>
+                            <q class="question-detail">
+                                <span class="question-author">
+                                    {{ question.author.username }}
+                                </span>
+                                <span class="question-time">
+                                    {{ question.create_time }}
+                                </span>
+                            </q>
+                        </div>
+                    </li>
+                </ul>
+            {% endfor %}
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
+
+{% endblock %}
