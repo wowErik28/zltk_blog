@@ -1,2 +1,3 @@
 This is a master test.
 This is a test for git.
+This is written in remote repository.
